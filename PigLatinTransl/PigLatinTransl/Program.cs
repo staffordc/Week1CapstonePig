@@ -18,15 +18,23 @@ namespace PigLatinTransl
             Console.WriteLine("Enter-way ext-tay");
             // input for PLTranslations
             string userInput = Console.ReadLine();
+            string PLSingWord = null;
+            string PLYWord = null;
 
-            StringBuilder pigLatinPrefix = new StringBuilder();
-
-            for (int n = 0; n < userInput.Length; n++)
+            for (int n = 0; n < userInput.Length; n++) //= positionOfVowel();
             {
-                //int findVowel();
+                //PLPrefix = userInput.Substring(startIndex: n);
+                //PLRoot = userInput.Substring(n: endIndex);
                 //Console.WriteLine($"{PLRoot}{PLPrefix}");
-                //userInput.Substring(startIndex: n);
-                
+                if (PLSingWord != null)
+                {
+                    break;
+                }
+                if (PLYWord != null)
+                {
+                    break;
+                }
+
                 switch (userInput[n])
                 {
 
@@ -35,15 +43,29 @@ namespace PigLatinTransl
                     case 'i':
                     case 'o':
                     case 'u':
-                        string PLRoot = userInput.Substring(n, userInput.Length);
-                        return;
+                        string PLRoot = userInput.Substring(n, userInput.Length - n);
+                        string PLPrefix = userInput.Substring(0, n);
+                        PLSingWord = $"{PLRoot}-{PLPrefix}ay";
+                        // return;
+                        break;
+                    case 'y':
+                        string PLYRoot = userInput.Substring(n, userInput.Length - n);
+                        string PLYPrefix = userInput.Substring(0, n);
+                        PLYWord = $"{PLYRoot}-{PLYPrefix}ay";
+                        break;
+
 
                     default:
-                        string PLPrefix = userInput.Substring(userInput.Length, n);
-                        return;
+                       // string PLPrefix = userInput.Substring(userInput.Length, n);
+                        // return;
+                        break;
+                        
+                    
                 }
 
             }
+            Console.WriteLine(PLSingWord);
+            Console.WriteLine(PLYWord);
             Console.ReadKey();
             if (positionOfVowel == -1)
             {
