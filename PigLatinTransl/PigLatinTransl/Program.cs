@@ -8,71 +8,110 @@ namespace PigLatinTransl
 {
     class Program
     {
-        
+
 
         static void Main(string[] args)
         {
-            int positionOfVowel = -1;
+            var Repeat = true;
 
-            Console.WriteLine("Welcome to the Pig Latin translator:");
-            Console.WriteLine("Enter-way ext-tay");
-            // input for PLTranslations
-            string userInput = Console.ReadLine();
-            string PLSingWord = null;
-            string PLYWord = null;
+            while (Repeat)
+            { 
+                Console.WriteLine("Welcome to the Pig Latin translator:");
+                Console.WriteLine("Enter-way ext-tay");
+                // input for PLTranslations
+                string userInput = Console.ReadLine();
+                userInput = userInput.ToLower();
+                string PLSingWord = null;
+                string PLYWord = null;
 
-            for (int n = 0; n < userInput.Length; n++) //= positionOfVowel();
-            {
-                //PLPrefix = userInput.Substring(startIndex: n);
-                //PLRoot = userInput.Substring(n: endIndex);
-                //Console.WriteLine($"{PLRoot}{PLPrefix}");
-                if (PLSingWord != null)
+                for (int n = 0; n < userInput.Length; n++) 
                 {
-                    break;
-                }
-                if (PLYWord != null)
-                {
-                    break;
-                }
-
-                switch (userInput[n])
-                {
-
-                    case 'a':
-                    case 'e':
-                    case 'i':
-                    case 'o':
-                    case 'u':
-                        string PLRoot = userInput.Substring(n, userInput.Length - n);
-                        string PLPrefix = userInput.Substring(0, n);
-                        PLSingWord = $"{PLRoot}-{PLPrefix}ay";
-                        // return;
+                
+                    if (PLSingWord != null)
+                    {
                         break;
-                    case 'y':
-                        string PLYRoot = userInput.Substring(n, userInput.Length - n);
-                        string PLYPrefix = userInput.Substring(0, n);
-                        PLYWord = $"{PLYRoot}-{PLYPrefix}ay";
-                        break;
+                    }
+                
 
+                    switch (userInput[n])
+                    {
 
-                    default:
-                       // string PLPrefix = userInput.Substring(userInput.Length, n);
-                        // return;
-                        break;
+                        case 'a':
+                        case 'e':
+                        case 'i':
+                        case 'o':
+                        case 'u':
+
+                            string PLRoot = userInput.Substring(n, userInput.Length - n);
+                            string PLPrefix = userInput.Substring(0, n);
                         
-                    
+                            if (n == 0)
+                            {
+                                PLSingWord = $"{PLRoot}-way";
+                                break;
+                            }
+                            PLSingWord = $"{PLRoot}-{PLPrefix}ay";
+
+                        
+                            // return;
+                            break;
+                        case 'y':
+                            if (PLYWord != null)
+                            {
+                                break;
+                            }
+                            string PLYRoot = userInput.Substring(n, userInput.Length - n);
+                            string PLYPrefix = userInput.Substring(0, n);
+                            PLYWord = $"{PLYRoot}-{PLYPrefix}ay";
+                       
+                            break;
+
+
+                        default:
+                        
+                            break;
+                    }
+
+                
                 }
+                if (PLSingWord == null && PLYWord == null)
+                {
+                    Console.WriteLine($"I don't think that's a word");
+                }
+                Console.WriteLine(PLSingWord);
+                Console.WriteLine(PLYWord);
+                Repeat = Retry();
 
             }
-            Console.WriteLine(PLSingWord);
-            Console.WriteLine(PLYWord);
-            Console.ReadKey();
-            if (positionOfVowel == -1)
+
+            
+            //restart?
+            bool Retry()
             {
-                Console.WriteLine(userInput);
+                Console.WriteLine("Want to translate another word? (y/n)");
+                String Answer = Console.ReadLine().ToUpper();
+
+                //var enteredYes = new[] { "Y", "YES" }.Contains(Answer);
+
+                if (Answer == "Y" || Answer == "YES")
+                {
+                    return true;
+
+                }
+                else if (Answer == "N" || Answer == "NO")
+                {
+                    return false;
+
+                }
+                else
+                {
+                    Console.WriteLine("That's Pig Latin to me! (jk, just give me a y or n)");
+                    return Retry();
+
+                }
             }
         }
-                   
     }
 }
+
 
